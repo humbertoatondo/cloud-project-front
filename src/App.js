@@ -2,25 +2,38 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor (props) {
+    super (props)
+    this.state = {
+      file: logo
+    }
+  }
+
+  fileSelectedHandler = event => {
+    console.log(event.target);
+    this.setState ({
+      file: URL.createObjectURL(event.target.files[0])
+    });
+  };
+
+  fileUploadedHandler = event => {
+    console.log("Upload");
+    // TODO: Upload image.
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={this.state.file} className="App-logo" alt="logo" />
+          <input type="file" onChange={this.fileSelectedHandler}></input>
+          <button onClick={this.fileUploadedHandler}>Upload</button>
+        </header>
+  
+      </div>
+    );
+  };
 }
 
 export default App;
