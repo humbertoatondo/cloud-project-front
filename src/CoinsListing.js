@@ -2,17 +2,19 @@ import React from 'react';
 
 const config = {
     accepted: {
+        text: 'Accepted',
         status: 'positive',
         icon: 'checkmark'
     },
     denied: {
+        text: 'Denied',
         status: 'negative',
         icon: 'close'
     }
 }
 
-const getStatus = (status) => {
-    if (status) {
+const getStatus = (coin_count, predicted_coins) => {
+    if (coin_count === predicted_coins) {
         return 'accepted';
     }
     return 'denied';
@@ -20,18 +22,24 @@ const getStatus = (status) => {
 
 class CoinsListing extends React.Component {
     render() {
-        const coins = this.props.coins.map((coin) => {
-            const status = config[getStatus(coin.accepted)];
+        const dataArr = this.props.coins.reverse();
+        const coins = dataArr.map((coin) => {
+            const status = config[getStatus(coin.coins, coin.predictedCoins)];
             return (
                 <tr key={coin.id}>
                     <td>
-                        <img src={coin.imgUrl} alt="used for processing" style={{ maxWidth: "150px", maxHeight: "150px" }} />
+                        <img
+                            className="ui centered image"
+                            src={coin.imgUrl}
+                            alt="used for processing"
+                            style={{ maxWidth: "150px", maxHeight: "150px" }} 
+                        />
                     </td>
-                    <td>{coin.coins}</td>
-                    <td>{coin.predictedCoins}</td>
-                    <td className={`${status.status}`}>
+                    <td className="center aligned">{coin.coins}</td>
+                    <td className="center aligned">{coin.predictedCoins}</td>
+                    <td className={`center aligned ${status.status}`}>
                         <i className={`icon ${status.icon}`} />
-                        {coin.accepted}
+                        {status.text}
                     </td>
                 </tr>
             );

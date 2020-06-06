@@ -15,13 +15,13 @@ class App extends React.Component {
             const resData = {
                 id: response.data.id,
                 imgUrl: response.data.url,
-                coins: response.data.number_of_coins,
-                predictedCoins: response.data.coins_predicted,
-                accepted: response.data.number_of_coins === response.data.coins_predicted ? true : false,
+                coins: parseInt(response.data.number_of_coins),
+                predictedCoins: parseInt(response.data.coins_predicted),
             }
             this.setState({
                 results: [...this.state.results, resData]
             });
+            
             console.log(this.state.results);
         });
     }
