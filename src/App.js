@@ -21,17 +21,12 @@ class App extends React.Component {
             this.setState({
                 results: [...this.state.results, resData]
             });
-            
-            console.log(this.state.results);
         });
     }
 
     onUploadImage = (img, name, type) => {
         this.getBase64(img, (base64) => {
             base64 = this.formatPathFile(type, base64);
-            /* console.log(base64);
-            console.log(name);
-            console.log(type); */
             axios.post("http://104.154.36.156:8080/uploadImage", {
                 image_type: type,
                 blob_name: String(name),

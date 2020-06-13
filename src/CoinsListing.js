@@ -22,7 +22,7 @@ const getStatus = (coin_count, predicted_coins) => {
 
 class CoinsListing extends React.Component {
     render() {
-        const dataArr = this.props.coins.reverse();
+        const dataArr = this.props.coins;
         const coins = dataArr.map((coin) => {
             const status = config[getStatus(coin.coins, coin.predictedCoins)];
             return (
